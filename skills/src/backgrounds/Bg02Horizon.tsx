@@ -1,5 +1,4 @@
 // BG 02 — Horizon Flow
-// Cool/warm split · three sine curves flow downstream
 import React from 'react';
 import {AbsoluteFill, useCurrentFrame, useVideoConfig} from 'remotion';
 import {Vignette, SineCurve, fadeIn} from './Shared';
@@ -10,10 +9,9 @@ export const Bg02Horizon: React.FC = () => {
 	const {fps, height} = useVideoConfig();
 
 	const t = frame / fps;
-	// Three curves flow at different speeds for depth
-	const phase1 = t * 0.6;
-	const phase2 = t * 0.45 + 1.2;
-	const phase3 = t * 0.3 + 2.4;
+	const phase1 = t * 1.2;
+	const phase2 = t * 0.9 + 1.2;
+	const phase3 = t * 0.6 + 2.4;
 
 	return (
 		<AbsoluteFill
@@ -28,34 +26,10 @@ export const Bg02Horizon: React.FC = () => {
 				].join(', '),
 			}}
 		>
-			<SineCurve
-				baseY={height * 0.62}
-				amplitude={70}
-				frequency={0.0014}
-				phase={phase1}
-				color={DUSTGOLD}
-				alpha={0.22}
-				strokeWidth={2}
-			/>
-			<SineCurve
-				baseY={height * 0.68}
-				amplitude={55}
-				frequency={0.0016}
-				phase={phase2}
-				color={DUSTGOLD}
-				alpha={0.16}
-				strokeWidth={2}
-			/>
-			<SineCurve
-				baseY={height * 0.74}
-				amplitude={40}
-				frequency={0.0012}
-				phase={phase3}
-				color={DUSTGOLD}
-				alpha={0.12}
-				strokeWidth={1}
-			/>
-			<Vignette intensity={0.14} />
+			<SineCurve baseY={height * 0.55} amplitude={110} frequency={0.0016} phase={phase1} color={DUSTGOLD} alpha={0.55} strokeWidth={2} />
+			<SineCurve baseY={height * 0.63} amplitude={85} frequency={0.0018} phase={phase2} color={DUSTGOLD} alpha={0.40} strokeWidth={2} />
+			<SineCurve baseY={height * 0.71} amplitude={65} frequency={0.0014} phase={phase3} color={DUSTGOLD} alpha={0.28} strokeWidth={1} />
+			<Vignette intensity={0.18} />
 		</AbsoluteFill>
 	);
 };
