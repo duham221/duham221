@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>SOCPA Soft Backgrounds</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #000; overflow: hidden; font-family: -apple-system, sans-serif; }
+  #bg {
+    width: 100vw; height: 100vh;
+    position: relative;
+    transition: opacity 0.4s;
+  }
+  #grad  { position: absolute; inset: 0; }
+  #svg   { position: absolute; inset: 0; width: 100%; height: 100%; }
+  #vign  { position: absolute; inset: 0; pointer-events: none; }
+
+  /* Nav */
+  #nav {
+    position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 10px; align-items: center; z-index: 10;
+  }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(180,155,105,0.4); cursor: pointer;
+    transition: all 0.3s;
+  }
+  .dot.active { background: rgba(180,155,105,0.9); transform: scale(1.4); }
+  .arrow {
+    background: rgba(255,255,255,0.15); border: none; border-radius: 50%;
+    width: 36px; height: 36px; cursor: pointer; color: rgba(180,155,105,0.8);
+    font-size: 16px; display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .arrow:hover { background: rgba(255,255,255,0.25); }
+  #label {
+    position: fixed; top: 24px; left: 50%; transform: translateX(-50%);
+    color: rgba(180,155,105,0.7); font-size: 13px; letter-spacing: 0.1em;
+    text-transform: uppercase; pointer-events: none;
+  }
+</style>
+</head>
+<body>
+<div id="bg">
+  <div id="grad"></div>
+  <svg id="svg" xmlns="http://www.w3.org/2000/svg"></svg>
+  <div id="vign"></div>
+</div>
+
+<div id="label"></div>
+<div id="nav">
+  <button class="arrow" onclick="prev()">‹</button>
+  <div id="dots"></div>
+  <button class="arrow" onclick="next()">›</button>
+</div>
+
+<script>
+// ─── Palette ─────────────────────────────────────────────────────────────────
+const C = {
+  PEARL:     [248,246,241], PORCELAIN: [252,250,246], CREAM:  [245,239,231],
+  SAND:      [232,220,196], ROSE:      [232,213,208], BLUSH:  [240,220,218],
+  SAGE:      [200,213,192], POWDER:    [213,224,232], SKY:    [220,232,240],
+  MIST:      [220,215,205], PEACH:     [245,222,200], APRICOT:[250,215,188],
+  CHARCOAL:  [42,42,48],    DUSTGOLD:  [180,155,105], SOFTGOLD:[220,195,145],
+  CHAMPAGNE: [235,220,190],
+};
+const rgb  = ([r,g,b]) => `rgb(${r},${g},${b})`;
+const rgba = ([r,g,b], a) => `rgba(${r},${g},${b},${a.toFixed(3)})`;
+const gr   = (r, cx, cy, color, a) =>
+  `radial-gradient(ellipse ${r} at ${cx}% ${cy}%, ${rgba(color,a)} 0%, transparent 100%)`;
+
+// ─── Shared helpers ───────────────────────────────────────────────────────────
+const W = () => window.innerWidth;
+const H = () => window.innerHeight;
+
+function fadeIn(frame) { return Math.min(1, frame / 20); }
+
+function sineCurve(baseY, amp, freq, phase) {
+  let pts = [];
+  for (let x = 0; x <= W(); x += 4) {
+    const y = baseY
+      + amp * Math.sin(x * freq + phase)
+      + amp * 0.4 * Math.sin(x * freq * 1.7 + phase * 1.2);
+    pts.push(`${x},${y|0}`);
+  }
+  return pts.join(' ');
+}
+
+function hairline(x1f, y1f, x2f, y2f, color, a) {
+  const el = document.createElementNS('http://www.w3.org/2000/svg','line');
+  el.setAttribute('x1', x1f * W()); el.setAttribute('y1', y1f * H());
+  el.setAttribute('x2', x2f * W()); el.setAttribute('y2', y2f * H());
+  el.setAttribute('stroke', rgba(color, a));
+  el.setAttribute('stroke-width', 1);
+  return el;
+}
+
+function gridSVG(color, a, spacing) {
+  const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+  g.setAttribute('stroke', rgba(color, a));
+  g.setAttribute('stroke-width', 1);
+  for (let x = 0; x <= W(); x += spacing) {
+    const l = document.createElementNS('http://www.w3.org/2000/svg','line');
+    l.setAttribute('x1',x);l.setAttribute('y1',0);
+    l.setAttribute('x2',x);l.setAttribute('y2',H());
+    g.appendChild(l);
+  }
+  for (let y = 0; y <= H(); y += spacing) {
+    const l = document.createElementNS('http://www.w3.org/2000/svg','line');
+    l.setAttribute('x1',0);l.setAttribute('y1',y);
+    l.setAttribute('x2',W());l.setAttribute('y2',y);
+    g.appendChild(l);
+  }
+  return g;
+}
+
+function setVignette(intensity) {
+  document.getElementById('vign').style.background =
+    `radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,${intensity}) 100%)`;
+}
+
+// ─── Backgrounds ─────────────────────────────────────────────────────────────
+const BGs = [
+
+// 01 — Pearl Foundation
+{
+  name: 'Pearl Foundation',
+  fps: 30,
+  render(frame) {
+    const t = (frame / this.fps) * Math.PI * 2;
+    const drift   = Math.sin(t / 6) * 0.18;
+    const breathe = Math.sin(t / 4) * 0.22;
+    const cx = 62 + drift * 100;
+    const s1 = `${38 + breathe * 100}% ${(38 + breathe*100)*1.2}%`;
+    const s2 = `${24 + breathe * 60}% ${(24 + breathe*60)*1.1}%`;
+    document.getElementById('grad').style.background = [
+      `radial-gradient(ellipse ${s2} at ${cx}% 42%, ${rgba(C.CHAMPAGNE,0.95)} 0%, transparent 100%)`,
+      `radial-gradient(ellipse ${s1} at ${cx}% 42%, ${rgba(C.SOFTGOLD,0.80)} 0%, transparent 100%)`,
+      gr('52% 52%',30,85,C.PEARL,0.9),
+      gr('72% 72%',10,10,C.PORCELAIN,0.95),
+      gr('82% 82%',100,100,C.MIST,0.9),
+      rgb(C.PORCELAIN),
+    ].join(',');
+    const svg = document.getElementById('svg');
+    svg.innerHTML = '';
+    svg.appendChild(hairline(0.08,0.85,0.92,0.85, C.DUSTGOLD, 0.35));
+    svg.appendChild(gridSVG(C.CHARCOAL, 0.035, 120));
+    setVignette(0.18);
+  }
+},
+
+// 02 — Horizon Flow
+{
+  name: 'Horizon Flow',
+  fps: 30,
+  render(frame) {
+    const t = frame / this.fps;
+    document.getElementById('grad').style.background = [
+      gr('72% 72%',15,20,C.POWDER,0.9),
+      gr('66% 66%',85,30,C.CREAM,0.85),
+      gr('60% 60%',50,85,C.CHAMPAGNE,0.85),
+      gr('48% 48%',85,85,C.APRICOT,0.7),
+      rgb(C.CREAM),
+    ].join(',');
+    const svg = document.getElementById('svg');
+    svg.innerHTML = '';
+    const curves = [
+      {y:0.55,a:110,f:0.0016,s:1.2,  al:0.55, w:2},
+      {y:0.63,a:85, f:0.0018,s:0.9,  al:0.40, w:2},
+      {y:0.71,a:65, f:0.0014,s:0.6,  al:0.28, w:1},
+    ];
+    curves.forEach(c => {
+      const pl = document.createElementNS('http://www.w3.org/2000/svg','polyline');
+      pl.setAttribute('points', sineCurve(H()*c.y, c.a, c.f, t*c.s));
+      pl.setAttribute('fill','none');
+      pl.setAttribute('stroke', rgba(C.DUSTGOLD, c.al));
+      pl.setAttribute('stroke-width', c.w);
+      svg.appendChild(pl);
+    });
+    setVignette(0.18);
+  }
+},
+
+// 03 — Dawn Memory
+{
+  name: 'Dawn Memory',
+  fps: 30,
+  render(frame) {
+    const t = (frame / this.fps) * Math.PI * 2;
+    const cy      = 55 - Math.sin(t/5)*18;
+    const breathe = 1 + Math.sin(t/3)*0.30;
+    const si = 16 * breathe, sm = 32 * breathe;
+    document.getElementById('grad').style.background = [
+      `radial-gradient(ellipse ${si}% ${si*1.1}% at 50% ${cy}%, rgba(255,240,220,1) 0%, transparent 100%)`,
+      `radial-gradient(ellipse ${sm}% ${sm*1.2}% at 50% ${cy}%, ${rgba(C.APRICOT,0.85)} 0%, transparent 100%)`,
+      gr('60% 60%',50,10,C.ROSE,0.75),
+      gr('55% 55%',50,95,C.CREAM,0.85),
+      gr('48% 48%',10,50,C.BLUSH,0.7),
+      gr('48% 48%',90,50,C.BLUSH,0.7),
+      rgb(C.ROSE),
+    ].join(',');
+    const svg = document.getElementById('svg');
+    svg.innerHTML = '';
+    svg.appendChild(hairline(0,0.62,1,0.62, C.DUSTGOLD, 0.35));
+    svg.appendChild(hairline(0,0.78,1,0.78, C.DUSTGOLD, 0.15));
+    setVignette(0.22);
+  }
+},
+
+// 04 — Architecture of Calm
+{
+  name: 'Architecture of Calm',
+  fps: 30,
+  render(frame) {
+    const t = (frame / this.fps) * Math.PI * 2;
+    const breathe  = Math.sin(t/5)*0.5+0.5;
+    const bandA    = 0.08 + breathe * 0.10;
+    const gridOp   = Math.min(1, frame / 60);
+    const champS   = 40 + breathe * 10;
+    document.getElementById('grad').style.background = [
+      `radial-gradient(ellipse 3% 58% at 30% 50%, ${rgba(C.SOFTGOLD,bandA)} 0%, transparent 100%)`,
+      `radial-gradient(ellipse 4% 58% at 42% 50%, ${rgba(C.SOFTGOLD,bandA)} 0%, transparent 100%)`,
+      `radial-gradient(ellipse 2% 58% at 50% 50%, ${rgba(C.SOFTGOLD,bandA)} 0%, transparent 100%)`,
+      `radial-gradient(ellipse 4% 58% at 58% 50%, ${rgba(C.SOFTGOLD,bandA)} 0%, transparent 100%)`,
+      `radial-gradient(ellipse 3% 58% at 70% 50%, ${rgba(C.SOFTGOLD,bandA)} 0%, transparent 100%)`,
+      `radial-gradient(ellipse ${champS}% ${champS*0.8}% at 50% 40%, ${rgba(C.CHAMPAGNE,0.6)} 0%, transparent 100%)`,
+      gr('95% 95%',0,0,C.PORCELAIN,0.98),
+      gr('95% 95%',100,100,C.MIST,0.9),
+      rgb(C.PORCELAIN),
+    ].join(',');
+    const svg = document.getElementById('svg');
+    svg.innerHTML = '';
+    svg.appendChild(hairline(0.10,0.86,0.90,0.86, C.CHARCOAL, 0.16));
+    const g = gridSVG(C.CHARCOAL, 0.018, 144);
+    g.style.opacity = gridOp;
+    svg.appendChild(g);
+    setVignette(0.15);
+  }
+},
+
+// 05 — Radiant Bloom
+{
+  name: 'Radiant Bloom',
+  fps: 30,
+  render(frame) {
+    const t = (frame / this.fps) * Math.PI * 2;
+    const pulse = Math.sin(t/5)*0.5+0.5;
+    const inner = 12 + pulse*20, mid = 28 + pulse*28, outer = 52 + pulse*24;
+    document.getElementById('grad').style.background = [
+      `radial-gradient(ellipse ${inner}% ${inner}% at 50% 50%, rgba(255,235,215,1) 0%, transparent 100%)`,
+      `radial-gradient(ellipse ${mid}% ${mid}% at 50% 50%, ${rgba(C.APRICOT,0.80)} 0%, transparent 100%)`,
+      `radial-gradient(ellipse ${outer}% ${outer}% at 50% 50%, ${rgba(C.ROSE,0.65)} 0%, transparent 100%)`,
+      gr('90% 90%',5,5,C.CREAM,0.9),
+      gr('90% 90%',95,95,C.MIST,0.9),
+      rgb(C.CREAM),
+    ].join(',');
+    document.getElementById('svg').innerHTML = '';
+    setVignette(0.20);
+  }
+},
+
+// 06 — Topography
+{
+  name: 'Topography',
+  fps: 30,
+  render(frame) {
+    const t = frame / this.fps;
+    document.getElementById('grad').style.background = [
+      gr('72% 72%',20,20,C.PEARL,0.95),
+      gr('72% 72%',80,80,C.SAGE,0.80),
+      gr('34% 34%',78,28,C.CHAMPAGNE,0.70),
+      gr('48% 48%',30,70,C.MIST,0.75),
+      rgb(C.PEARL),
+    ].join(',');
+    const svg = document.getElementById('svg');
+    svg.innerHTML = '';
+    const curves = [
+      {dy:0,   a:100,f:0.0013,s:0.9, al:0.30,w:2},
+      {dy:90,  a:88, f:0.0015,s:0.72,al:0.38,w:1},
+      {dy:180, a:76, f:0.0014,s:0.56,al:0.46,w:1},
+      {dy:270, a:64, f:0.0012,s:0.42,al:0.52,w:1},
+      {dy:360, a:52, f:0.0013,s:0.30,al:0.58,w:1},
+    ];
+    curves.forEach((c,i) => {
+      const pl = document.createElementNS('http://www.w3.org/2000/svg','polyline');
+      pl.setAttribute('points', sineCurve(H()*0.35+c.dy, c.a, c.f, t*c.s+i*0.8));
+      pl.setAttribute('fill','none');
+      pl.setAttribute('stroke', rgba(C.DUSTGOLD, c.al));
+      pl.setAttribute('stroke-width', c.w);
+      svg.appendChild(pl);
+    });
+    setVignette(0.18);
+  }
+},
+
+// 07 — Floating Atmosphere
+{
+  name: 'Floating Atmosphere',
+  fps: 30,
+  render(frame) {
+    const t = frame / this.fps;
+    const orbs = [
+      {cx:0.22,cy:0.50,rx:0.14,ry:0.18,period:7, phase:0,   color:C.PEACH, s:22},
+      {cx:0.42,cy:0.45,rx:0.18,ry:0.12,period:9, phase:1.5, color:C.SAGE,  s:20},
+      {cx:0.60,cy:0.55,rx:0.14,ry:0.16,period:11,phase:3.0, color:C.ROSE,  s:22},
+      {cx:0.80,cy:0.50,rx:0.16,ry:0.12,period:8, phase:4.5, color:C.SKY,   s:24},
+    ];
+    const layers = orbs.map(o => {
+      const a = (t/o.period)*Math.PI*2 + o.phase;
+      const x = (o.cx + Math.cos(a)*o.rx)*100;
+      const y = (o.cy + Math.sin(a)*o.ry)*100;
+      return `radial-gradient(ellipse ${o.s}% ${o.s*1.1}% at ${x.toFixed(1)}% ${y.toFixed(1)}%, ${rgba(o.color,0.85)} 0%, transparent 100%)`;
+    });
+    document.getElementById('grad').style.background = [
+      ...layers,
+      gr('75% 75%',5,10,C.POWDER,0.9),
+      gr('75% 75%',95,95,C.CREAM,0.9),
+      rgb(C.CREAM),
+    ].join(',');
+    const svg = document.getElementById('svg');
+    svg.innerHTML = '';
+    svg.appendChild(hairline(0.10,0.74,0.90,0.74, C.DUSTGOLD, 0.25));
+    svg.appendChild(gridSVG(C.CHARCOAL, 0.022, 144));
+    setVignette(0.18);
+  }
+},
+
+// 08 — Golden Mist
+{
+  name: 'Golden Mist',
+  fps: 30,
+  render(frame) {
+    const t = (frame / this.fps) * Math.PI * 2;
+    const breathe = Math.sin(t/4)*0.5+0.5;
+    const inner = 14 + breathe*16, mid = 36 + breathe*26;
+    const cy = 42 - Math.sin(t/4)*12;
+    const lineA = Math.min(0.35, frame/70*0.35);
+    document.getElementById('grad').style.background = [
+      `radial-gradient(ellipse ${inner}% ${inner*1.1}% at 50% ${cy}%, rgba(255,245,225,1) 0%, transparent 100%)`,
+      `radial-gradient(ellipse ${mid}% ${mid*1.2}% at 50% ${cy}%, ${rgba(C.APRICOT,0.85)} 0%, transparent 100%)`,
+      gr('50% 50%',50,5,C.SOFTGOLD,0.75),
+      gr('56% 56%',50,95,C.ROSE,0.72),
+      gr('56% 56%',5,50,C.SAND,0.68),
+      gr('56% 56%',95,50,C.SAND,0.68),
+      rgb(C.ROSE),
+    ].join(',');
+    const svg = document.getElementById('svg');
+    svg.innerHTML = '';
+    svg.appendChild(hairline(0,0.70,1,0.70, C.DUSTGOLD, lineA));
+    setVignette(0.28);
+  }
+},
+
+];
+
+// ─── Engine ───────────────────────────────────────────────────────────────────
+let current = 0, frame = 0, raf;
+
+function buildDots() {
+  const c = document.getElementById('dots');
+  c.innerHTML = '';
+  BGs.forEach((_,i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i===current?' active':'');
+    d.onclick = () => goTo(i);
+    c.appendChild(d);
+  });
+}
+
+function goTo(i) {
+  current = i; frame = 0;
+  document.getElementById('label').textContent =
+    `0${i+1} — ${BGs[i].name}`;
+  buildDots();
+}
+
+function prev() { goTo((current-1+BGs.length)%BGs.length); }
+function next() { goTo((current+1)%BGs.length); }
+
+function loop() {
+  frame++;
+  const bg = BGs[current];
+  document.getElementById('bg').style.opacity = fadeIn(frame);
+  bg.render(frame);
+  raf = requestAnimationFrame(loop);
+}
+
+// keyboard
+document.addEventListener('keydown', e => {
+  if (e.key==='ArrowRight'||e.key==='ArrowDown') next();
+  if (e.key==='ArrowLeft' ||e.key==='ArrowUp')   prev();
+});
+
+goTo(0);
+loop();
+</script>
+</body>
+</html>
