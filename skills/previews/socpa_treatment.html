@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOCPA — Treatment 2025 — الثقة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #06081A;
+  --bg2:       #0A0D20;
+  --bg3:       #10142A;
+  --card:      #0E1224;
+  --card2:     #131829;
+  --gold:      #C9A556;
+  --gold-lt:   #E3C278;
+  --gold-dim:  rgba(201,165,86,.13);
+  --gold-brd:  rgba(201,165,86,.28);
+  --text:      #EDE8DC;
+  --text70:    rgba(237,232,220,.70);
+  --text40:    rgba(237,232,220,.40);
+  --text20:    rgba(237,232,220,.18);
+  --red:       rgba(220,80,80,.85);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Naskh Arabic', 'Arabic Typesetting', serif;
+  font-size: 17px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Typography ──────────────────────────────────────────────────────────── */
+.en {
+  font-family: 'Inter', -apple-system, sans-serif;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+.en-serif {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+.gold  { color: var(--gold); }
+.dim   { color: var(--text40); }
+.small { font-size: 13px; letter-spacing: .08em; }
+
+/* ── Layout ──────────────────────────────────────────────────────────────── */
+.section {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 100px 48px;
+}
+.section-full {
+  padding: 100px 48px;
+}
+hr.gold-line {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-brd), transparent);
+  margin: 0;
+}
+
+/* ── Cover ───────────────────────────────────────────────────────────────── */
+#cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 52px 64px;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 60%, rgba(30,40,90,.55) 0%, transparent 100%),
+    radial-gradient(ellipse 80% 40% at 80% 100%, rgba(201,165,86,.08) 0%, transparent 100%),
+    var(--bg);
+  position: relative;
+  overflow: hidden;
+}
+#cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 79px,
+    rgba(255,255,255,.018) 80px
+  );
+  pointer-events: none;
+}
+.cover-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.cover-logo {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .18em;
+  color: var(--gold);
+  text-transform: uppercase;
+  direction: ltr;
+}
+.cover-logo span {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: .12em;
+  color: var(--text40);
+  margin-top: 4px;
+}
+.cover-badge {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .2em;
+  color: var(--text40);
+  border: 1px solid var(--text20);
+  padding: 6px 14px;
+  direction: ltr;
+}
+
+.cover-center {
+  text-align: center;
+  padding: 40px 0;
+}
+.cover-ar {
+  font-size: clamp(88px, 14vw, 168px);
+  font-weight: 700;
+  line-height: .9;
+  color: var(--text);
+  letter-spacing: -.01em;
+}
+.cover-divider {
+  width: 1px;
+  height: 56px;
+  background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+  margin: 28px auto;
+}
+.cover-en {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(48px, 7vw, 86px);
+  font-weight: 300;
+  letter-spacing: .22em;
+  color: var(--gold-lt);
+  direction: ltr;
+  text-transform: uppercase;
+}
+
+.cover-bottom {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  border: 1px solid var(--text20);
+}
+.cover-stat {
+  padding: 20px 24px;
+  border-left: 1px solid var(--text20);
+}
+.cover-stat:last-child { border-left: none; }
+.cover-stat .val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--gold);
+  direction: ltr;
+}
+.cover-stat .lbl {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: .12em;
+  color: var(--text40);
+  text-transform: uppercase;
+  direction: ltr;
+  margin-top: 2px;
+}
+
+/* ── Section headers ─────────────────────────────────────────────────────── */
+.sec-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .2em;
+  color: var(--gold);
+  text-transform: uppercase;
+  direction: ltr;
+  margin-bottom: 12px;
+}
+.sec-title {
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 40px;
+}
+.sec-title-en {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px;
+  font-weight: 300;
+  letter-spacing: .04em;
+  direction: ltr;
+  margin-bottom: 40px;
+}
+
+/* ── Director ────────────────────────────────────────────────────────────── */
+#director { background: var(--bg2); }
+.director-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 80px;
+  align-items: start;
+}
+.director-card {
+  border: 1px solid var(--gold-brd);
+  padding: 40px 32px;
+  text-align: center;
+  background: var(--gold-dim);
+}
+.director-name-en {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 38px;
+  font-weight: 300;
+  letter-spacing: .08em;
+  direction: ltr;
+  color: var(--gold-lt);
+  line-height: 1.1;
+}
+.director-name-ar {
+  font-size: 28px;
+  font-weight: 600;
+  margin-top: 6px;
+  color: var(--text);
+}
+.director-role {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: .18em;
+  color: var(--text40);
+  text-transform: uppercase;
+  direction: ltr;
+  margin-top: 16px;
+}
+.role-pill {
+  display: inline-block;
+  border: 1px solid var(--gold-brd);
+  color: var(--gold);
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  margin: 4px 3px;
+  direction: ltr;
+}
+.director-bio {
+  font-size: 18px;
+  line-height: 1.9;
+  color: var(--text70);
+  margin-bottom: 32px;
+}
+
+/* ── Concept ─────────────────────────────────────────────────────────────── */
+#concept { background: var(--bg3); }
+.concept-text {
+  font-size: 22px;
+  line-height: 2;
+  color: var(--text70);
+  max-width: 820px;
+}
+.concept-text strong { color: var(--text); font-weight: 600; }
+.quote-block {
+  border-right: 3px solid var(--gold);
+  padding: 20px 28px 20px 0;
+  margin: 40px 0;
+  font-size: 20px;
+  line-height: 1.85;
+  color: var(--gold-lt);
+  font-style: italic;
+}
+
+/* ── Shots ───────────────────────────────────────────────────────────────── */
+#storyboard { background: var(--bg2); }
+.shots-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+}
+.shot-card {
+  background: var(--card);
+  padding: 36px 32px;
+  position: relative;
+  border-top: 1px solid var(--gold-brd);
+  transition: background .2s;
+}
+.shot-card:hover { background: var(--card2); }
+
+.shot-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+.shot-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 64px;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--gold);
+  opacity: .5;
+  direction: ltr;
+}
+.shot-meta {
+  text-align: left;
+  direction: ltr;
+}
+.shot-tc {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .06em;
+  color: var(--gold-lt);
+  direction: ltr;
+}
+.shot-dur {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: var(--text40);
+  letter-spacing: .04em;
+  direction: ltr;
+  margin-top: 3px;
+}
+.shot-type {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  letter-spacing: .16em;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border: 1px solid;
+  direction: ltr;
+}
+.type-stock { color: #7EB8D4; border-color: rgba(126,184,212,.4); }
+.type-ai    { color: #B47ED4; border-color: rgba(180,126,212,.4); }
+.type-vfx   { color: #D4A57E; border-color: rgba(212,165,126,.4); }
+.type-mg    { color: #7ED4A5; border-color: rgba(126,212,165,.4); }
+
+.shot-title-en {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--text40);
+  direction: ltr;
+  margin-bottom: 6px;
+}
+.shot-title-ar {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 14px;
+  line-height: 1.4;
+}
+.shot-desc {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text40);
+  margin-bottom: 18px;
+}
+.shot-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+  direction: ltr;
+}
+.tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--text20);
+  color: var(--text40);
+  padding: 4px 10px;
+}
+.shot-vo {
+  border-right: 2px solid var(--gold);
+  padding: 10px 14px 10px 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--gold-lt);
+  margin-top: 14px;
+  font-style: italic;
+}
+.silent-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  letter-spacing: .12em;
+  color: var(--text20);
+  text-transform: uppercase;
+  direction: ltr;
+}
+.link-next {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  letter-spacing: .1em;
+  color: var(--gold);
+  opacity: .5;
+  direction: ltr;
+  margin-top: 10px;
+}
+
+/* ── Look & Feel ─────────────────────────────────────────────────────────── */
+#lookfeel { background: var(--bg3); }
+.lf-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 48px;
+}
+.lf-card {
+  background: var(--card);
+  padding: 40px 32px;
+  border-top: 1px solid var(--gold-brd);
+}
+.lf-card h3 {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  direction: ltr;
+  margin-bottom: 16px;
+}
+.lf-card p { font-size: 15px; line-height: 1.85; color: var(--text70); }
+.palette-row {
+  display: flex;
+  gap: 4px;
+  margin-top: 20px;
+}
+.swatch {
+  flex: 1;
+  height: 40px;
+  border-radius: 2px;
+}
+
+/* ── References ──────────────────────────────────────────────────────────── */
+#references { background: var(--bg2); }
+.ref-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 40px;
+}
+.ref-card {
+  background: var(--card);
+  padding: 32px 28px;
+  border-top: 1px solid var(--gold-brd);
+}
+.ref-card .ref-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px;
+  font-weight: 300;
+  color: var(--gold);
+  opacity: .4;
+  direction: ltr;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.ref-card h3 {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold-lt);
+  direction: ltr;
+  margin-bottom: 10px;
+}
+.ref-card .ref-sub {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.ref-card .ref-desc { font-size: 14px; color: var(--text40); line-height: 1.7; }
+.ref-link {
+  display: inline-block;
+  margin-top: 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: .06em;
+  direction: ltr;
+  border-bottom: 1px solid var(--gold-brd);
+  padding-bottom: 2px;
+  text-decoration: none;
+}
+.play-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--gold-brd);
+  border-radius: 50%;
+  color: var(--gold);
+  font-size: 16px;
+  margin-bottom: 16px;
+  direction: ltr;
+}
+
+/* ── Timeline ────────────────────────────────────────────────────────────── */
+#timeline { background: var(--bg3); }
+.tl-wrap {
+  margin-top: 48px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+}
+.tl-bar {
+  display: flex;
+  height: 56px;
+  min-width: 700px;
+  gap: 2px;
+}
+.tl-seg {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  direction: ltr;
+  position: relative;
+  cursor: default;
+  transition: filter .2s;
+}
+.tl-seg:hover { filter: brightness(1.2); }
+.tl-labels {
+  display: flex;
+  min-width: 700px;
+  gap: 2px;
+  margin-top: 8px;
+}
+.tl-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  color: var(--text40);
+  letter-spacing: .04em;
+  direction: ltr;
+  text-align: center;
+}
+.tl-note {
+  margin-top: 24px;
+  font-size: 14px;
+  color: var(--text40);
+  line-height: 1.8;
+  border-right: 2px solid var(--gold-brd);
+  padding-right: 16px;
+}
+
+/* ── Outro ───────────────────────────────────────────────────────────────── */
+#outro {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background:
+    radial-gradient(ellipse 60% 60% at 50% 50%, rgba(30,40,90,.6) 0%, transparent 100%),
+    var(--bg);
+  padding: 100px 48px;
+  position: relative;
+  overflow: hidden;
+}
+#outro::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 79px, rgba(255,255,255,.018) 80px
+  );
+  pointer-events: none;
+}
+.outro-thank {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(64px, 10vw, 120px);
+  font-weight: 300;
+  letter-spacing: .14em;
+  color: var(--gold-lt);
+  direction: ltr;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.outro-you {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(48px, 7vw, 86px);
+  font-weight: 300;
+  letter-spacing: .22em;
+  color: var(--gold);
+  direction: ltr;
+  line-height: 1;
+}
+.outro-sub {
+  margin-top: 40px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  letter-spacing: .16em;
+  color: var(--text40);
+  direction: ltr;
+  text-transform: uppercase;
+}
+
+/* ── Nav dots (optional scroll indicator) ────────────────────────────────── */
+@media (max-width: 768px) {
+  .section { padding: 64px 24px; }
+  .section-full { padding: 64px 24px; }
+  #cover { padding: 36px 24px; }
+  .director-grid { grid-template-columns: 1fr; gap: 40px; }
+  .shots-grid { grid-template-columns: 1fr; }
+  .lf-grid { grid-template-columns: 1fr; }
+  .ref-grid { grid-template-columns: 1fr; }
+  .cover-bottom { grid-template-columns: repeat(2, 1fr); }
+  .cover-ar { font-size: 72px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ COVER ══════════════════ -->
+<section id="cover">
+  <div class="cover-top">
+    <div class="cover-logo">
+      SOCPA
+      <span>الهيئة السعودية للمراجعين والمحاسبين</span>
+    </div>
+    <div class="cover-badge">TREATMENT — 2025 — CONFIDENTIAL</div>
+  </div>
+
+  <div class="cover-center">
+    <div class="cover-ar">الثقة</div>
+    <div class="cover-divider"></div>
+    <div class="cover-en">TRUST</div>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-stat">
+      <div class="val">~2:15</div>
+      <div class="lbl">DURATION</div>
+    </div>
+    <div class="cover-stat">
+      <div class="val">16</div>
+      <div class="lbl">SHOTS</div>
+    </div>
+    <div class="cover-stat">
+      <div class="val">AI + STOCK</div>
+      <div class="lbl">PRODUCTION</div>
+    </div>
+    <div class="cover-stat">
+      <div class="val" style="font-size:16px;padding-top:6px;">MOSTAFA MOHAMED</div>
+      <div class="lbl">TREATMENT BY</div>
+    </div>
+  </div>
+</section>
+
+<hr class="gold-line">
+
+<!-- ══════════════════ DIRECTOR ══════════════════ -->
+<section id="director" class="section-full">
+  <div class="section">
+    <div class="director-grid">
+      <div>
+        <div class="director-card">
+          <div class="director-name-en">MOSTAFA<br>MOHAMED</div>
+          <div class="director-name-ar">مصطفى محمد</div>
+          <div class="director-role">REFLECTION TRIANGLE</div>
+          <div style="margin-top:20px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;">
+            <span class="role-pill">DIRECTOR</span>
+            <span class="role-pill">EDITOR</span>
+            <span class="role-pill">VFX</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="sec-label">المخرج</div>
+        <div class="sec-title">رؤية المخرج</div>
+        <p class="director-bio">
+          يسعدني أن أكون جزءاً من هذا المشروع مع الهيئة السعودية للمراجعين والمحاسبين.
+        </p>
+        <p class="director-bio">
+          رؤيتي هي تجربة بصرية سينمائية بحتة تجعل المشاهد يشعر بثقل وعمق الثقة — ليس كقيمة مجردة، بل كركيزة حقيقية يقوم عليها الاقتصاد. من خلال مزيج من <strong class="gold">AI Generated Visuals</strong> والـ <strong class="gold">Stock Footage</strong> الفاخر مع <strong class="gold">VFX</strong> متقن.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="gold-line">
+
+<!-- ══════════════════ CONCEPT ══════════════════ -->
+<section id="concept" class="section-full">
+  <div class="section">
+    <div class="sec-label">THE CONCEPT</div>
+    <div class="sec-title">الفكرة</div>
+    <p class="concept-text">
+      هذا الفيديو <strong>رحلة بصرية وعاطفية</strong> تنطلق من الزخم الاقتصادي اليومي وتصعد لتكشف الدور المحوري الذي تلعبه مهنة المحاسبة والمراجعة.
+    </p>
+    <div class="quote-block">
+      "الثقة" هي الخيط الذهبي الذي يربط كل مشهد بالآخر — الفيديو إعلان سينمائي بحت.
+    </div>
+    <p class="concept-text">
+      بدون فويس أوفر في الـ 15 ثانية الأولى — الصمت يبني التوقع. ثم يدخل الصوت تدريجياً مع الموسيقى ليكمل الرحلة حتى الذروة.
+    </p>
+  </div>
+</section>
+
+<hr class="gold-line">
+
+<!-- ══════════════════ STORYBOARD ══════════════════ -->
+<section id="storyboard" class="section-full">
+  <div class="section">
+    <div class="sec-label">THE FILM</div>
+    <div class="sec-title">السيناريو البصري</div>
+  </div>
+
+  <div class="shots-grid">
+
+    <!-- SHOT 01 -->
+    <div class="shot-card">
+      <div class="shot-header">
+        <div class="shot-num">01</div>
+        <div class="shot-meta">
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;justify-content:flex-end;">
+            <span class="shot-type type-stock">STOCK FOOTAGE</span>
+          </div>
+          <div class="shot-tc">0:00 → 0:03</div>
+          <div class="shot-dur">3 ثوانٍ</div>
+        </div>
+      </div>
+      <div class="shot-title-en">SHOT 01 — ESTABLISH — FAST CUT</div>
+      <div class="shot-title-ar">أسواق مالية متحركة</div>
+      <div class="shot-desc">أسواق مالية بسرعة عالية — أرقام وبيانات تتدفق — Fast Cut مع Speed Ramp. إيقاع سريع يضع المشاهد في قلب الاقتصاد.</div>
+      <div class="shot-tags">
+        <span class="tag">FAST CUT</span>
+        <span class="tag">SPEED RAMP</span>
+        <span class="tag">SOUND DESIGN</span>
+      </div>
+      <div class="silent-badge">🔇 NO VOICE OVER</div>
+    </div>
+
+    <!-- SHOT 02 -->
+    <div class="shot-card">
+      <div class="shot-header">
+        <div class="shot-num">02</div>
+        <div class="shot-meta">
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;justify-content:flex-end;">
+            <span class="shot-type type-stock">STOCK FOOTAGE</span>
+          </div>
+          <div class="shot-tc">0:03 → 0:06</div>
+          <div class="shot-dur">3 ثوانٍ</div>
+        </div>
+      </div>
+      <div class="shot-title-en">SHOT 02 — OVERHEAD AERIAL</div>
+      <div class="shot-title-ar">ناس بتمشي بسرعة — الرياض</div>
+      <div class="shot-desc">Overhead Aerial View لشوارع الرياض — ناس بتمشي بسرعة — Motion Blur يعكس حركة الحياة الاقتصادية.</div>
+      <div class="shot-tags">
+        <span class="tag">OVERHEAD AERIAL</span>
+        <span class="tag">MOTION BLUR</span>
+      </div>
+      <div class="silent-badge">🔇 NO VOICE OVER</div>
+    </div>
+
+    <!-- SHOT 03 -->
+    <div class="shot-card">
+      <div class="shot-header">
+        <div class="shot-num">03</div>
+        <div class="shot-meta">
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;justify-content:flex-end;">
+            <span class="shot-type type-stock">STOCK FOOTAGE</span>
+          </div>
+          <div class="shot-tc">0:06 → 0:09</div>
+          <div class="shot-dur">3 ثوانٍ</div>
+        </div>
+      </div>
+      <div class="shot-title-en">SHOT 03 — AERIAL WIDE — GOLDEN HOUR</div>
+      <div class="shot-title-ar">مصانع ضخمة — Golden Hour</div>
+      <div class="shot-desc">Aerial Wide Shot — Golden Hour — الكاميرا ترتفع ببطء لتكشف ميناء في الأفق. ينتقل لـ Shot 04.</div>
+      <div class="shot-tags">
+        <span class="tag">AERIAL WIDE</span>
+        <span class="tag">FACTORY AMBIENCE</span>
+      </div>
+      <div class="silent-badge">🔇 NO VOICE OVER</div>
+      <div class="link-next">⟶ يربط مع SHOT 04</div>
+    </div>
+
+    <!-- SHOT 04 -->
+    <div class="shot-card">
+      <div class="shot-header">
+        <div class="shot-num">04</div>
+        <div class="shot-meta">
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;justify-content:flex-end;">
+            <span class="shot-type type-ai">AI GENERATED</span>
+          </div>
+          <div class="shot-tc">0:09 → 0:13</div>
+          <div class="shot-dur">4 ثوانٍ</div>
+        </div>
+      </div>
+      <div class="shot-title-en">SHOT 04 — TOP VIEW DRONE — POWER SHOT</div>
+      <div class="shot-title-ar">لحظة الثقة — الشخص المختلف</div>
+      <div class="shot-desc">كل حاجة Slow Motion إلا شخص واحد بثوب سعودي ماشي عادي في المنتصف — Drone Top View — شعاع ذهبي بهوية SOCPA ينزل عليه من السماء — كلمة "الثقة" تظهر في السماء تدريجياً.</div>
+      <div class="shot-tags">
+        <span class="tag">TOP VIEW DRONE</span>
+        <span class="tag">SLOW MOTION</span>
+        <span class="tag">VFX BEAM</span>
+        <span class="tag">AI GENERATED SKY</span>
+        <span class="tag">MUSIC STARTS</span>
+      </div>
+      <div class="silent-badge">🔇 الثقة تظهر في السماء</div>
+      <div class="link-next">⟶ الشعاع → FPV DRONE → مجسم الثقة</div>
+    </div>
+
+    <!-- SHOT 05 -->
+    <div class="shot-card">
+      <div class="shot-header">
+        <div class="shot-num">05</div>
+        <div class="shot-meta">
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;justify-content:flex-end;">
+            <span class="shot-type type-ai">AI + VFX</span>
+          </div>
+          <div class="shot-tc">0:13 → 0:15</div>
+          <div class="shot-dur">2 ثانية</div>
+        </div>
+      </div>
+      <div class="shot-title-en">SHOT 05 — FPV ONE SHOT — 3D MONUMENT</div>
+      <div class="shot-title-ar">الدرون → مجسم الثقة</div>
+      <div class="shot-desc">FPV Drone يطير فوق الرياض بين الأبراج — يقترب من مبنى الهيئة — يدخل من المدخل — يجد مجسم "الثقة" ثلاثي الأبعاد مضيئاً بالذهبي في القاعة الكبيرة.</div>
+      <div class="shot-tags">
+        <span class="tag">FPV ONE SHOT</span>
+        <span class="tag">3D MONUMENT</span>
+        <span class="tag">AI + VFX BLEND</span>
+      </div>
+      <div class="link-next">⟶ Match Cut: قاعدة المجسم → قاعدة الدرع في المكتب</div>
+    </div>
+
+    <!-- SHOT 06 -->
+    <div class="shot-card">
+      <div class="shot-header">
+        <div class="shot-num">06</div>
+        <div class="shot-meta">
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;justify-content:flex-end;">
+            <span class="shot-type type-stock">MATCH CUT + STOCK</span>
+          </div>
+          <div class="shot-tc">0:15 → 0:38</div>
+          <div class="shot-dur">23 ثانية</div>
+        </div>
+      </div>
+      <div class="shot-title-en">SHOT 06 — MATCH CUT → 3 SCENES</div>
+      <div class="shot-title-ar">Match Cut → مصنع → ميناء → برج</div>
+      <div class="shot-desc">Match Cut من قاعدة المجسم لقاعدة الدرع في المكتب — نفس الزاوية والإضاءة. ثم: مصنع الرياض (متانة) → ميناء الدمام (جاذبية) → برج جدة + بورصة (تنافسية).</div>
+      <div class="shot-tags">
+        <span class="tag">MATCH CUT</span>
+        <span class="tag">AERIAL</span>
+        <span class="tag">GOLD LIGHTING</span>
+        <span class="tag">VOICE OVER STARTS</span>
+      </div>
+      <div class="shot-vo">الثقة.. أساس متانة الاقتصاد وجاذبية الاستثمار وتنافسية الأعمال</div>
+    </div>
+
+    <!-- SHOT 10 -->
+    <div class="shot-card">
+      <div class="shot-header">
+        <div class="shot-num">10</div>
+        <div class="shot-meta">
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;justify-content:flex-end;">
+            <span class="shot-type type-ai">AI GENERATED</span>
+          </div>
+          <div class="shot-tc">0:38 → 0:52</div>
+          <div class="shot-dur">14 ثانية</div>
+        </div>
+      </div>
+      <div class="shot-title-en">SHOT 10 — AI CLOUD FORMATION — EPIC SKY</div>
+      <div class="shot-title-ar">السحاب يكوّن 2030 — علم المملكة</div>
+      <div class="shot-desc">الكاميرا ترتفع من برج جدة نحو السماء — السحاب يتشكل تدريجياً ليكوّن رقم 2030 — علم المملكة يرفرف بفخامة — God Rays تخترق السحاب.</div>
+      <div class="shot-tags">
+        <span class="tag">AERIAL RISING</span>
+        <span class="tag">AI CLOUD FORMATION</span>
+        <span class="tag">GOD RAYS</span>
+        <span class="tag">ORCHESTRA SWELL</span>
+      </div>
+      <div class="shot-vo">واليوم.. ينطلق الاقتصاد السعودي بثقة نحو المستقبل مع رؤية السعودية 2030.. بدعم خادم الحرمين الشريفين ودعم وتوجيه سمو ولي العهد حفظهما الله</div>
+    </div>
+
+    <!-- SHOT 11 -->
+    <div class="shot-card">
+      <div class="shot-header">
+        <div class="shot-num">11</div>
+        <div class="shot-meta">
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;justify-content:flex-end;">
+            <span class="shot-type type-stock">STOCK FOOTAGE</span>
+          </div>
+          <div class="shot-tc">0:52 → 1:08</div>
+          <div class="shot-dur">16 ثانية</div>
+        </div>
+      </div>
+      <div class="shot-title-en">SHOT 11 — CORPORATE CINEMATIC</div>
+      <div class="shot-title-ar">المحاسب — ركيزة الثقة</div>
+      <div class="shot-desc">محاسب شاب سعودي يراجع تقرير مالي على شاشة زجاجية — وجهه فيه ثقة وتركيز — Data HUD Overlay — إضاءة زرقاء ذهبية راقية. إعلاني بحت.</div>
+      <div class="shot-tags">
+        <span class="tag">MEDIUM + CLOSE UP</span>
+        <span class="tag">DATA HUD OVERLAY</span>
+      </div>
+      <div class="shot-vo">لتبرز مهنة المحاسبة والمراجعة كإحدى ركائز الثقة التي عززت موثوقية الأرقام ورفعت جودة التقارير المالية ودعمت سلامة القرار</div>
+      <div class="link-next">⟶ إيده تسحب الرسم → خط زمني ضوئي</div>
+    </div>
+
+    <!-- SHOT 12 -->
+    <div class="shot-card">
+      <div class="shot-header">
+        <div class="shot-num">12</div>
+        <div class="shot-meta">
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;justify-content:flex-end;">
+            <span class="shot-type type-mg">MOTION GRAPHICS</span>
+          </div>
+          <div class="shot-tc">1:08 → 1:24</div>
+          <div class="shot-dur">16 ثانية</div>
+        </div>
+      </div>
+      <div class="shot-title-en">SHOT 12 — LIGHT TIMELINE — +300</div>
+      <div class="shot-title-ar">خط زمني ضوئي — +300 إصلاح</div>
+      <div class="shot-desc">الرسم البياني يتحول لخط زمني ضوئي ممتد — نقاط مضيئة تمثل الإصلاحات — الكاميرا تتحرك من اليمين لليسار — رقم +300 يظهر بشكل درامي.</div>
+      <div class="shot-tags">
+        <span class="tag">TRACKING SHOT</span>
+        <span class="tag">LIGHT TRAIL</span>
+        <span class="tag">KINETIC TYPOGRAPHY</span>
+        <span class="tag">DRAMATIC HIT</span>
+      </div>
+      <div class="shot-vo">وعلى مدى عشر سنوات.. شهد القطاع المحاسبي السعودي تحولاً استثنائياً عبر أكثر من ثلاثمئة إصلاح</div>
+    </div>
+
+    <!-- SHOT 13 -->
+    <div class="shot-card">
+      <div class="shot-header">
+        <div class="shot-num">13</div>
+        <div class="shot-meta">
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;justify-content:flex-end;">
+            <span class="shot-type type-vfx">VFX COMPOSITE</span>
+          </div>
+          <div class="shot-tc">1:24 → 1:40</div>
+          <div class="shot-dur">16 ثانية</div>
+        </div>
+      </div>
+      <div class="shot-title-en">SHOT 13 — VFX COMPOSITE — MAP FORMATION</div>
+      <div class="shot-title-ar">التوقيع → خريطة المملكة</div>
+      <div class="shot-desc">داخل مبنى رسمي فاخر — أيدي توقع وثائق — كل توقيع يضيء خطاً ذهبياً — الخطوط تتجمع لتكوّن خريطة المملكة. لحظة VFX مبهرة.</div>
+      <div class="shot-tags">
+        <span class="tag">CLOSE UP + PULL BACK</span>
+        <span class="tag">GOLD LINES → MAP VFX</span>
+      </div>
+      <div class="shot-vo">إصلاحات تنظيمية وموضوعية ومؤسسية وإجرائية.. دعمت تحقيق الأهداف الاستراتيجية لهيئة المراجعين والمحاسبين ووسعت أثر المهنة في منظومة الاقتصاد الوطني</div>
+    </div>
+
+    <!-- SHOT 14 -->
+    <div class="shot-card">
+      <div class="shot-header">
+        <div class="shot-num">14</div>
+        <div class="shot-meta">
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;justify-content:flex-end;">
+            <span class="shot-type type-mg">MOTION GRAPHICS</span>
+          </div>
+          <div class="shot-tc">1:40 → 1:52</div>
+          <div class="shot-dur">12 ثانية</div>
+        </div>
+      </div>
+      <div class="shot-title-en">SHOT 14 — HOLOGRAPHIC MAP — +25 RANKING</div>
+      <div class="shot-title-ar">+25 مرتبة — الريادة الدولية</div>
+      <div class="shot-desc">خريطة المملكة مضيئة — حواليها رموز دول العالم — سهم ضخم يصعد 25 مرتبة — المملكة تتصدر — السهم يتحول لطائرة تقلع.</div>
+      <div class="shot-tags">
+        <span class="tag">SLOW ZOOM OUT</span>
+        <span class="tag">HOLOGRAPHIC MAP</span>
+        <span class="tag">COUNTER ANIMATION</span>
+        <span class="tag">MUSIC PEAK</span>
+      </div>
+      <div class="shot-vo">لتحقق المملكة الريادة في تطبيق كامل المعايير المهنية الدولية وتتقدم 25 مرتبة في مؤشر المحاسبة والمراجعة وتسهم في صياغة مستقبل المهنة عالمياً</div>
+      <div class="link-next">⟶ السهم → طائرة → سماء مفتوحة</div>
+    </div>
+
+    <!-- SHOT 15 -->
+    <div class="shot-card">
+      <div class="shot-header">
+        <div class="shot-num">15</div>
+        <div class="shot-meta">
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;justify-content:flex-end;">
+            <span class="shot-type type-stock">STOCK FOOTAGE</span>
+          </div>
+          <div class="shot-tc">1:52 → 2:02</div>
+          <div class="shot-dur">10 ثوانٍ</div>
+        </div>
+      </div>
+      <div class="shot-title-en">SHOT 15 — INTERNATIONAL CONFERENCE</div>
+      <div class="shot-title-ar">الكفاءات الوطنية — المستقبل المشرق</div>
+      <div class="shot-desc">قاعة مؤتمر دولية — شباب سعوديون يقدموا بثقة — الجمهور الدولي منتبه — ثم Close Up لوجه شاب سعودي مبتسم ينظر لفوق.</div>
+      <div class="shot-tags">
+        <span class="tag">MEDIUM + CLOSE UP</span>
+        <span class="tag">ORCHESTRA BUILD</span>
+      </div>
+      <div class="shot-vo">تطور كان له أثره على جاهزية الكفاءات الوطنية بوتيرة تعكس مستقبلاً مهنياً مشرقاً</div>
+      <div class="link-next">⟶ وجه الشاب → أفق الرياض فجراً</div>
+    </div>
+
+    <!-- SHOT 16 -->
+    <div class="shot-card">
+      <div class="shot-header">
+        <div class="shot-num">16</div>
+        <div class="shot-meta">
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;justify-content:flex-end;">
+            <span class="shot-type type-ai">AI + STOCK</span>
+          </div>
+          <div class="shot-tc">2:02 → 2:15</div>
+          <div class="shot-dur">13 ثانية</div>
+        </div>
+      </div>
+      <div class="shot-title-en">SHOT 16 — EPIC OUTRO — LOGO REVEAL</div>
+      <div class="shot-title-ar">الرياض فجراً — شعار SOCPA</div>
+      <div class="shot-desc">الشاب ينظر لأفق الرياض في الفجر — ضوء ذهبي يملأ المشهد — الكاميرا تسحب ببطء وفخامة لتكشف المدينة كلها — شعار SOCPA يظهر في المنتصف — الموسيقى تصل لذروتها ثم تهدأ في صمت.</div>
+      <div class="shot-tags">
+        <span class="tag">EPIC SLOW PULL BACK</span>
+        <span class="tag">LOGO REVEAL</span>
+        <span class="tag">GOD RAYS</span>
+        <span class="tag">CRESCENDO → SILENCE</span>
+      </div>
+      <div class="shot-vo">واليوم.. تسير مهنة المحاسبة والمراجعة.. شريكاً فاعلاً في مسيرة التنمية وبناء اقتصاد مزدهر.. ينمو بثقة.. ويمضي باستدامة</div>
+    </div>
+
+  </div><!-- /shots-grid -->
+</section>
+
+<hr class="gold-line">
+
+<!-- ══════════════════ LOOK & FEEL ══════════════════ -->
+<section id="lookfeel" class="section-full">
+  <div class="section">
+    <div class="sec-label">LOOK & FEEL</div>
+    <div class="sec-title">المزاج البصري</div>
+    <div class="lf-grid">
+      <div class="lf-card">
+        <h3>COLOR GRADE</h3>
+        <p>أزرق داكن عميق مع ذهبي دافئ — هوية SOCPA ثابتة في كل مشهد. كل إطار يستحق أن يكون صورة منفردة.</p>
+        <div class="palette-row">
+          <div class="swatch" style="background:#0A1228;" title="Dark Navy"></div>
+          <div class="swatch" style="background:#1A2B50;" title="Deep Blue"></div>
+          <div class="swatch" style="background:#C9A556;" title="Gold"></div>
+          <div class="swatch" style="background:#E3C278;" title="Gold Light"></div>
+          <div class="swatch" style="background:#F0EBE0;" title="Warm White"></div>
+        </div>
+      </div>
+      <div class="lf-card">
+        <h3>LIGHTING</h3>
+        <p>الإضاءة دايماً درامية مع <strong class="gold">God Rays</strong> في اللحظات المفصلية. كونتراست عالي — ظلال عميقة — نقاط ضوء ذهبية.</p>
+      </div>
+      <div class="lf-card">
+        <h3>RHYTHM</h3>
+        <p>Fast Cut في الـ Opening لبناء الزخم — ثم Slow Motion في لحظة الثقة — ثم Epic Slow Pull Back في الختام. المونتاج نفسه يحكي القصة.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="gold-line">
+
+<!-- ══════════════════ REFERENCES ══════════════════ -->
+<section id="references" class="section-full">
+  <div class="section">
+    <div class="sec-label">REFERENCES</div>
+    <div class="sec-title">المراجع</div>
+    <div class="ref-grid">
+      <div class="ref-card">
+        <div class="play-icon">▶</div>
+        <h3>EDIT REFERENCE — INSTAGRAM</h3>
+        <div class="ref-sub">ريفرنس الإيديت</div>
+        <p class="ref-desc">المرجع الرئيسي لأسلوب المونتاج والإيقاع — طريقة الربط بين المشاهد.</p>
+        <a class="ref-link" href="https://www.instagram.com/p/DXr4DpdCKRQ" target="_blank">instagram.com/p/DXr4DpdCKRQ ↗</a>
+      </div>
+      <div class="ref-card">
+        <div class="play-icon">▶</div>
+        <h3>MUSIC REFERENCE #1 — YOUTUBE</h3>
+        <div class="ref-sub">ريفرنس الموسيقى الأول</div>
+        <p class="ref-desc">المرجع الأول للموسيقى والـ Sound Design والتصاعد الدرامي.</p>
+        <a class="ref-link" href="https://www.youtube.com/watch?v=rjljtYkziIQ" target="_blank">youtube.com/watch?v=rjljtYkziIQ ↗</a>
+      </div>
+      <div class="ref-card">
+        <div class="play-icon">▶</div>
+        <h3>MUSIC REFERENCE #2 — YOUTUBE</h3>
+        <div class="ref-sub">ريفرنس الموسيقى الثاني</div>
+        <p class="ref-desc">يوضح الـ Up & Down المطلوب في الـ Sound Design والتوازن بين الهدوء والذروة.</p>
+        <a class="ref-link" href="https://www.youtube.com/watch?v=ccx1w8SgJC0" target="_blank">youtube.com/watch?v=ccx1w8SgJC0 ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="gold-line">
+
+<!-- ══════════════════ TIMELINE ══════════════════ -->
+<section id="timeline" class="section-full">
+  <div class="section">
+    <div class="sec-label">FULL TIMELINE</div>
+    <div class="sec-title">الخط الزمني</div>
+    <div class="tl-wrap">
+      <div class="tl-bar">
+        <div class="tl-seg" style="flex:11.1;background:rgba(201,165,86,.18);color:var(--gold);">OPENING</div>
+        <div class="tl-seg" style="flex:17.0;background:rgba(100,120,200,.18);color:rgba(180,190,220,.8);">NO VO</div>
+        <div class="tl-seg" style="flex:10.4;background:rgba(201,165,86,.25);color:var(--gold-lt);">2030</div>
+        <div class="tl-seg" style="flex:11.9;background:rgba(100,120,200,.22);color:rgba(180,190,220,.8);">ركائز</div>
+        <div class="tl-seg" style="flex:11.9;background:rgba(201,165,86,.18);color:var(--gold);">+300</div>
+        <div class="tl-seg" style="flex:11.9;background:rgba(100,120,200,.22);color:rgba(180,190,220,.8);">إصلاح</div>
+        <div class="tl-seg" style="flex:8.9;background:rgba(201,165,86,.25);color:var(--gold-lt);">ريادة</div>
+        <div class="tl-seg" style="flex:7.4;background:rgba(100,120,200,.18);color:rgba(180,190,220,.8);">كفاءات</div>
+        <div class="tl-seg" style="flex:9.6;background:rgba(201,165,86,.35);color:var(--gold-lt);font-size:9px;">OUTRO</div>
+      </div>
+      <div class="tl-labels">
+        <div class="tl-label" style="flex:11.1;">0:00→0:15</div>
+        <div class="tl-label" style="flex:17.0;">0:15→0:38</div>
+        <div class="tl-label" style="flex:10.4;">0:38→0:52</div>
+        <div class="tl-label" style="flex:11.9;">0:52→1:08</div>
+        <div class="tl-label" style="flex:11.9;">1:08→1:24</div>
+        <div class="tl-label" style="flex:11.9;">1:24→1:40</div>
+        <div class="tl-label" style="flex:8.9;">1:40→1:52</div>
+        <div class="tl-label" style="flex:7.4;">1:52→2:02</div>
+        <div class="tl-label" style="flex:9.6;">2:02→2:15</div>
+      </div>
+    </div>
+    <p class="tl-note">
+      الـ Opening الصامتة 15 ثانية تبني التوقع. كل مشهد مربوط بالمشهد اللي قبله. المونتاج نفسه يحكي القصة. Color Grade ثابت: أزرق داكن + ذهبي.
+    </p>
+  </div>
+</section>
+
+<hr class="gold-line">
+
+<!-- ══════════════════ OUTRO ══════════════════ -->
+<section id="outro">
+  <div class="outro-thank">THANK</div>
+  <div class="outro-you">YOU</div>
+  <div class="outro-sub">
+    TREATMENT BY MOSTAFA MOHAMED — REFLECTION TRIANGLE — 2025<br>
+    SOCPA — الهيئة السعودية للمراجعين والمحاسبين — CONFIDENTIAL
+  </div>
+</section>
+
+</body>
+</html>
