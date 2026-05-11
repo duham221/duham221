@@ -1,2 +1,4 @@
 skills/node_modules/
 skills/package-lock.json
+mcp/node_modules/
+mcp/dist/

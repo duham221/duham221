@@ -43,6 +43,47 @@ Each `BgXX*.tsx` file exports a single React component that is fully self-contai
 - `rules/*.md` — one file per topic (timing, sequencing, transitions, audio, captions, etc.). These are loaded by AI assistants on demand; keep them authoritative and self-contained.
 - `rules/assets/*.tsx` — reference implementations embedded in the skill (bar chart, typewriter, word highlight). They are also registered as compositions in `Root.tsx` for live preview.
 
+## MCP server (`mcp/`)
+
+An MCP server that exposes all Remotion skill files as tools, so any Claude instance (on any machine) can read them on demand.
+
+### Setup
+
+```bash
+cd mcp
+npm install
+npm run build        # compiles to dist/
+```
+
+### Tools exposed
+
+| Tool | Description |
+|---|---|
+| `list_skills` | Lists every rule topic and asset name |
+| `get_skill` | Returns the markdown for a topic (`"timing"`, `"audio"`, …); use `"overview"` for the top-level `SKILL.md` |
+| `get_skill_asset` | Returns the TSX source of a reference component (`"charts-bar-chart"`, etc.) |
+
+### Wiring to Claude Desktop
+
+Add this block to `claude_desktop_config.json` (adjust the path to the repo):
+
+```json
+{
+  "mcpServers": {
+    "remotion-skills": {
+      "command": "node",
+      "args": ["/absolute/path/to/duham221/mcp/dist/index.js"]
+    }
+  }
+}
+```
+
+During development you can skip the build step:
+
+```json
+"args": ["--import", "tsx", "/absolute/path/to/duham221/mcp/src/index.ts"]
+```
+
 ## Remotion conventions (critical)
 
 **CSS transitions and Tailwind animation classes are forbidden** — they do not render correctly in Remotion's frame-by-frame renderer. All animation must go through `interpolate()` or `spring()` from `remotion`.
