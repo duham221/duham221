@@ -57,11 +57,17 @@ npm run build        # compiles to dist/
 
 ### Tools exposed
 
-| Tool | Description |
+| Tool | Returns |
 |---|---|
-| `list_skills` | Lists every rule topic and asset name |
-| `get_skill` | Returns the markdown for a topic (`"timing"`, `"audio"`, …); use `"overview"` for the top-level `SKILL.md` |
-| `get_skill_asset` | Returns the TSX source of a reference component (`"charts-bar-chart"`, etc.) |
+| `list_all` | One-shot inventory of everything (skills + assets + backgrounds + setup) |
+| `list_skills` | All 35 markdown rule topics |
+| `get_skill` | Markdown for a topic (`"timing"`, `"audio"`, …); use `"overview"` for `SKILL.md` |
+| `list_skill_assets` | The reference TSX components under `rules/assets/` |
+| `get_skill_asset` | Source of a reference component (`"charts-bar-chart"`, etc.) |
+| `list_backgrounds` | The 8 `Bg*.tsx` files plus `Shared.tsx` and `palette.ts` |
+| `get_background` | Source of any background or utility file (`"Bg01Pearl.tsx"`, `"Shared.tsx"`, `"palette.ts"`) |
+| `list_setup` | Project scaffolding files |
+| `get_setup_file` | Content of `Root.tsx`, `index.ts`, `package.json`, or `tsconfig.json` |
 
 ### Wiring to Claude Desktop
 
